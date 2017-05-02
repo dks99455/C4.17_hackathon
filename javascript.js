@@ -6,6 +6,8 @@ var masterArray = [];
 var masterArrayTwo = [[],[],[],[],[]];
 
 function dropPiece(){
+    var column =
+    var row = $(this).attr('row').val();
 }
 
 function makeGrid(){
@@ -21,8 +23,8 @@ function makeGrid(){
         for(var e = 0; e < 6; e++){
             var newDiv = $('<div>',{
                 id: 'row' + i +'-'+ 'column' + e,
-                data_row: i,
-                data_column: e,
+                'data-row': i,
+                'data-column': e,
                 text: 'row' + i +' ' + 'column' + e
             });
             $('#mainBody').append(newDiv);
