@@ -1,0 +1,32 @@
+body{
+    /*background-color: #333333;*/
+    background-color: lightsalmon;
+}
+#mainBody{
+    width: 70vw;
+    height: 80vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+}
+#mainBody div{
+    width: 16%;
+    height: 20%;
+    background-color: white;
+    border: .1vh solid black;
+    float: left;
+    left: 50%;
+    /*-moz-border-radius: 60%;*/
+    /*-webkit-border-radius: 60%;*/
+    /*border-radius: 60%;*/
+}
+#mainBody .header{
+    width: 16%;
+    height: 10%;
+    background-color: lightgrey;
+    border: .1vh solid black;
+    float: left;
+    left: 50%;
+    text-align: center;
+}
