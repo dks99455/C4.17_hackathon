@@ -17,6 +17,12 @@ var masterArrayTwo = [[],[],[],[],[]];
 var tokenColumn = null;
 var tokenRow = null;
 var playerColor = null;
+var colZeroAllowed = true;
+var colOneAllowed = true;
+var colTwoAllowed = true;
+var colThreeAllowed = true;
+var colFourAllowed = true;
+var colFiveAllowed = true;
 
 function makeGrid(){
     for(var p = 0; p < 6; p++){
@@ -62,111 +68,153 @@ function playerTurn() {
 }
 
 function dropPieceZero(){
-    var column = 0;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colZeroAllowed === false){
+        return;
+    }else{
+        var column = 0;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        playerTurn();
+        if(masterArrayTwo[0][0] && masterArrayTwo[1][0] && masterArrayTwo[2][0] && masterArrayTwo[3][0] && masterArrayTwo[4][0]){
+            colZeroAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceOne(){
-    var column = 1;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colOneAllowed === false){
+        return;
+    }else{
+        var column = 1;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        playerTurn();
+        if(masterArrayTwo[0][1] && masterArrayTwo[1][1] && masterArrayTwo[2][1] && masterArrayTwo[3][1] && masterArrayTwo[4][1]){
+            colOneAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceTwo(){
-    var column = 2;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colTwoAllowed === false){
+        return;
+    }else{
+        var column = 2;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        playerTurn();
+        if(masterArrayTwo[0][2] && masterArrayTwo[1][2] && masterArrayTwo[2][2] && masterArrayTwo[3][2] && masterArrayTwo[4][2]){
+            colTwoAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceThree(){
-    var column = 3;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colThreeAllowed === false){
+        return;
+    }else{
+        var column = 3;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        playerTurn();
+        if(masterArrayTwo[0][3] && masterArrayTwo[1][3] && masterArrayTwo[2][3] && masterArrayTwo[3][3] && masterArrayTwo[4][3]){
+            colThreeAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceFour(){
-    var column = 4;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colFourAllowed === false){
+        return;
+    }else{
+        var column = 4;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        playerTurn();
+        if(masterArrayTwo[0][4] && masterArrayTwo[1][4] && masterArrayTwo[2][4] && masterArrayTwo[3][4] && masterArrayTwo[4][4]){
+            colFourAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceFive(){
-    var column = 5;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colFiveAllowed === false){
+        return;
+    }else{
+        var column = 5;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        playerTurn();
+        if(masterArrayTwo[0][5] && masterArrayTwo[1][5] && masterArrayTwo[2][5] && masterArrayTwo[3][5] && masterArrayTwo[4][5]){
+            colFiveAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 //check functions
@@ -181,14 +229,11 @@ function checkHorizontal() {
             match = 0;
             e++;
         }
-        if (match == 4) {
-            console.log('VICTOLY');
-            if (match === 4) {
-                console.log('YOU WIN!!!');
-            }
+        if (match === 4) {
+            console.log('YOU WIN!!!');
         }
-        match = 0;
     }
+    match = 0;
 }
 function checkVert(){
     for(var e =0; e < masterArrayTwo.length; e){
@@ -251,7 +296,15 @@ function resetGame() {
     tokenColumn = null;
     tokenRow = null;
     playerColor = null;
+    colZeroAllowed = true;
+    colOneAllowed = true;
+    colTwoAllowed = true;
+    colThreeAllowed = true;
+    colFourAllowed = true;
+    colFiveAllowed = true;
     $('#mainBody div').css('background-color', "");
     playerTurn();
 }
+
+
 
