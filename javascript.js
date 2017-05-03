@@ -231,7 +231,7 @@ function checkHorizontal() {
         }
         if (match === 4) {
             gameEnd();
-            console.log('YOU WIN!!!');
+
         }
     }
     match = 0;
@@ -246,12 +246,14 @@ function checkVert(){
             match = 0;
         }
         if(match === 4){
+
             gameEnd();
-            console.log('YOU WIN!!');
+
         }
     }
     match = 0;
 }
+
 
 
 function checkDiag() {
