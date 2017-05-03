@@ -6,7 +6,7 @@ var masterArray = [];
 var masterArrayTwo = [[],[],[],[],[]];
 
 function dropPiece(){
-    var column =
+//    var column =
     var row = $(this).attr('row').val();
 }
 
@@ -34,4 +34,27 @@ function makeGrid(){
         masterArray.push(divArray);
     }
     console.log(masterArray);
+}
+
+
+//david
+var match = 0;
+function checkHorizontal(){
+    var i = tokenRow;
+    for(var e = 0; e < divArray.length; e){
+        $(masterArray[i][e]).find(playerValue);
+        if(masterArray[i][e].attr(data-value) == playerValue){
+            match++;
+            e++;
+        } else {
+            match = 0;
+            e++;
+        }
+        if(match = 4){
+            console.log('VICTOLY');
+        }
+    }
+
+
+
 }
