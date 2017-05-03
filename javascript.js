@@ -1,12 +1,12 @@
 $(document).ready(function(){
     makeGrid();
     playerTurn();
-    $('.header-column0').click(dropPieceZero);
-    $('.header-column1').click(dropPieceOne);
-    $('.header-column2').click(dropPieceTwo);
-    $('.header-column3').click(dropPieceThree);
-    $('.header-column4').click(dropPieceFour);
-    $('.header-column5').click(dropPieceFive);
+    $('.header-column0').on('click', dropPieceZero);
+    $('.header-column1').on('click', dropPieceOne);
+    $('.header-column2').on('click', dropPieceTwo);
+    $('.header-column3').on('click', dropPieceThree);
+    $('.header-column4').on('click', dropPieceFour);
+    $('.header-column5').on('click', dropPieceFive);
     $('.reset_button').click(resetGame);
 
 });
@@ -230,8 +230,8 @@ function checkHorizontal() {
             e++;
         }
         if (match === 4) {
-            gameWon();
-            return;
+            gameEnd();
+
         }
     }
     match = 0;
@@ -246,8 +246,9 @@ function checkVert(){
             match = 0;
         }
         if(match === 4){
-            gameWon();
-            return;
+
+            gameEnd();
+
         }
     }
     match = 0;
@@ -269,9 +270,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -286,9 +287,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -307,9 +308,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -324,9 +325,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -350,16 +351,38 @@ function resetGame() {
     colFourAllowed = true;
     colFiveAllowed = true;
     $('#mainBody div').css('background-color', "");
+    $('.header-column0').on('click', dropPieceZero);
+    $('.header-column1').on('click', dropPieceOne);
+    $('.header-column2').on('click', dropPieceTwo);
+    $('.header-column3').on('click', dropPieceThree);
+    $('.header-column4').on('click', dropPieceFour);
+    $('.header-column5').on('click', dropPieceFive);
     playerTurn();
 }
 
-function gameWon() {
-    $('#mainBody div').hide();
-    var winDiv = $('<div>',{
-        text: "You Win!",
-        class: "winDiv"
-    });
-    $('body').append(winDiv);
+
+//stop game after match
+function gameEnd(){
+    $('.header-column0').off('click', dropPieceZero);
+    $('.header-column1').off('click', dropPieceOne);
+    $('.header-column2').off('click', dropPieceTwo);
+    $('.header-column3').off('click', dropPieceThree);
+    $('.header-column4').off('click', dropPieceFour);
+    $('.header-column5').off('click', dropPieceFive);
+    if(playerChar == 'x'){
+        $('#winner').removeClass('hider');
+        setTimeout(function(){
+            $('#winner').addClass('hider');
+            return false;
+        }, 2000)
+    }else{
+        $('#winner').removeClass('hider');
+        setTimeout(function(){
+            $('#winner').addClass('hider');
+            return false;
+        }, 2000)
+    }
 }
+
 
 
