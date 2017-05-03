@@ -1,6 +1,10 @@
 body{
     background-color: #333333;
+
     background-image: url('https://www.windows10update.com/wp-content/uploads/2015/06/Windows10-Game-of-thrones-wallpaper-game-of-thrones-movie-hd-wallpaper-1920x1080-8180.jpg');
+
+    font-family: 'Cinzel', 'Cormorant SC', serif;
+
 }
 #mainBody{
     width: 70vw;
@@ -54,9 +58,13 @@ body{
 
 #winner{
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     position: absolute;
-    background-image: url(images/placeholder.gif);
+    background-image: url(images/GoTLogo.jpg);
+    background-size: 100%;
+    text-align: center;
+    font-size: large;
+    margin: auto;
 }
 .hider{
     display: none;

@@ -370,17 +370,34 @@ function gameEnd(){
     $('.header-column4').off('click', dropPieceFour);
     $('.header-column5').off('click', dropPieceFive);
     if(playerChar == 'x'){
+        $('#winner').css('background-image', 'url(images/winter_is_coming.gif)');
         $('#winner').removeClass('hider');
         setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
+        }, 3000);
+        setTimeout(function(){
             $('#winner').addClass('hider');
+            $('.whos_turn').text("Player 1 wins!");
+            $('.whos_turn').removeClass('player2_turn');
+            $('.whos_turn').addClass('player1_turn');
             return false;
-        }, 2000)
+        }, 5000)
     }else{
+        $('#winner').css('background-image', 'url(images/placeholder.gif)');
         $('#winner').removeClass('hider');
         setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/joffreysmile.gif)')
+        }, 2000);
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
+        }, 3000);
+        setTimeout(function(){
             $('#winner').addClass('hider');
+            $('.whos_turn').text("Player 2 wins!");
+            $('.whos_turn').removeClass('player1_turn');
+            $('.whos_turn').addClass('player2_turn');
             return false;
-        }, 2000)
+        }, 5000)
     }
 }
 
