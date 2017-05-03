@@ -8,9 +8,10 @@ $(document).ready(function(){
     $('.header-column4').on('click', dropPieceFour);
     $('.header-column5').on('click', dropPieceFive);
     $('.reset_button').click(resetGame);
-
+    $('.playersButton').on('click', playerNumSwap);
 });
 var playerNumber = 0;
+var numberOfPlayers = 2;
 var playerChar = null;
 var masterArray = [];
 var masterArrayTwo = [[],[],[],[],[]];
@@ -23,6 +24,18 @@ var colTwoAllowed = true;
 var colThreeAllowed = true;
 var colFourAllowed = true;
 var colFiveAllowed = true;
+
+function playerNumSwap(){
+    if(numberOfPlayers == 2){
+        resetGame();
+        numberOfPlayers = 3;
+        $('.playersButton').text('Number of Players: 3');
+    } else if (numberOfPlayers == 3){
+        resetGame();
+        numberOfPlayers = 2;
+        $('.playersButton').text('Number of Players: 2');
+    }
+}
 
 function makeGrid(){
     for(var p = 0; p < 6; p++){
@@ -50,19 +63,29 @@ function makeGrid(){
 }
 
 function playerTurn() {
-    if(playerNumber % 2 === 0){
+    if(playerNumber % numberOfPlayers === 0){
         playerChar = 'x';
-        $('.whos_turn').text("You're move Player 1!");
+        $('.whos_turn').text("Your move Player 1!");
         $('.whos_turn').removeClass('player2_turn');
+        $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player1_turn');
         playerColor = 'darkgrey';
         playerNumber++;
-    } else if(playerNumber % 2 === 1){
+    } else if(playerNumber % numberOfPlayers === 1){
         playerChar = 'o';
-        $('.whos_turn').text("You're move Player 2!");
+        $('.whos_turn').text("Your move Player 2!");
         $('.whos_turn').removeClass('player1_turn');
+        $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player2_turn');
         playerColor = 'darkred';
+        playerNumber++;
+    } else {
+        playerChar = 'y';
+        $('.whos_turn').text("Your move Player 3!");
+        $('.whos_turn').removeClass('player1_turn');
+        $('.whos_turn').removeClass('player2_turn');
+        $('.whos_turn').addClass('player3_turn');
+        playerColor = 'blue';
         playerNumber++;
     }
 }
@@ -337,6 +360,12 @@ function checkDiag() {
 
     // RESET THE GAME
 function resetGame() {
+    $('.header-column0').off('click', dropPieceZero);
+    $('.header-column1').off('click', dropPieceOne);
+    $('.header-column2').off('click', dropPieceTwo);
+    $('.header-column3').off('click', dropPieceThree);
+    $('.header-column4').off('click', dropPieceFour);
+    $('.header-column5').off('click', dropPieceFive);
     playerNumber = 0;
     playerChar = null;
     masterArray = [];
@@ -378,11 +407,12 @@ function gameEnd(){
         setTimeout(function(){
             $('#winner').addClass('hider');
             $('.whos_turn').text("Player 1 wins!");
+            $('.whos_turn').removeClass('player3_turn');
             $('.whos_turn').removeClass('player2_turn');
             $('.whos_turn').addClass('player1_turn');
             return false;
         }, 5000)
-    }else{
+    }else if (playerChar == 'o'){
         $('#winner').css('background-image', 'url(images/placeholder.gif)');
         $('#winner').removeClass('hider');
         setTimeout(function(){
@@ -394,8 +424,26 @@ function gameEnd(){
         setTimeout(function(){
             $('#winner').addClass('hider');
             $('.whos_turn').text("Player 2 wins!");
+            $('.whos_turn').removeClass('player3_turn');
             $('.whos_turn').removeClass('player1_turn');
             $('.whos_turn').addClass('player2_turn');
+            return false;
+        }, 5000)
+    }else if (playerChar == 'y'){
+        $('#winner').css('background-image', 'url(images/placeholder.gif)');
+        $('#winner').removeClass('hider');
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/joffreysmile.gif)')
+        }, 2000);
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
+        }, 3000);
+        setTimeout(function(){
+            $('#winner').addClass('hider');
+            $('.whos_turn').text("Player 3 wins!");
+            $('.whos_turn').removeClass('player2_turn');
+            $('.whos_turn').removeClass('player1_turn');
+            $('.whos_turn').addClass('player3_turn');
             return false;
         }, 5000)
     }
