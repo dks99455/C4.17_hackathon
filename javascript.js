@@ -90,11 +90,9 @@ function dropPieceZero(){
         $('#row0-col0').css('background-color', playerColor);
     }
     checkHorizontal();
-<<<<<<< HEAD
-=======
     checkVert();
+    checkDiag();
     playerTurn();
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
 }
 
 function dropPieceOne(){
@@ -127,11 +125,9 @@ function dropPieceOne(){
         $('#row0-col1').css('background-color', playerColor);
     }
     checkHorizontal();
-<<<<<<< HEAD
-=======
     checkVert();
+    checkDiag();
     playerTurn();
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
 }
 
 function dropPieceTwo(){
@@ -163,13 +159,10 @@ function dropPieceTwo(){
         tokenRow = row - 4;
         $('#row0-col2').css('background-color', playerColor);
     }
-<<<<<<< HEAD
     checkHorizontal();
-=======
-    checkHorizontal()
     checkVert();
+    checkDiag();
     playerTurn();
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
 }
 
 function dropPieceThree(){
@@ -202,11 +195,9 @@ function dropPieceThree(){
         $('#row0-col3').css('background-color', playerColor);
     }
     checkHorizontal();
-<<<<<<< HEAD
-=======
     checkVert();
+    checkDiag();
     playerTurn();
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
 }
 
 function dropPieceFour(){
@@ -239,18 +230,15 @@ function dropPieceFour(){
         $('#row0-col4').css('background-color', playerColor);
     }
     checkHorizontal();
-<<<<<<< HEAD
-=======
     checkVert();
+    checkDiag();
     playerTurn();
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
 }
 
 function dropPieceFive() {
     var column = 5;
     var row = 4;
     if (!masterArrayTwo[row][column]) {
-<<<<<<< HEAD
         masterArrayTwo[row][column] = 'x';
         tokenColumn = column;
         tokenRow = row;
@@ -268,7 +256,6 @@ function dropPieceFive() {
         tokenRow = row - 3;
     } else if (!masterArrayTwo[row - 4][column]) {
         masterArrayTwo[row - 4][column] = 'x';
-=======
         masterArrayTwo[row][column] = playerChar;
         tokenColumn = column;
         tokenRow = row;
@@ -290,47 +277,36 @@ function dropPieceFive() {
         $('#row1-col5').css('background-color', playerColor);
     } else if (!masterArrayTwo[row - 4][column]) {
         masterArrayTwo[row - 4][column] = playerChar;
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
         tokenColumn = column;
         tokenRow = row - 4;
         $('#row0-col5').css('background-color', playerColor);
     }
     checkHorizontal();
-<<<<<<< HEAD
-=======
     checkVert();
+    checkDiag();
     playerTurn();
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
 }
 
-//check function
+//check functions
 var match = 0;
-<<<<<<< HEAD
-function checkHorizontal(){
-    for(var e = 0; e < tokenRow.length; e){
 
-        if($(masterArrayTwo[tokenRow][e]).attr('data-value') == playerChar){
-=======
 function checkHorizontal() {
     for (var e = 0; e < masterArrayTwo[tokenRow].length; e) {
         if (masterArrayTwo[tokenRow][e] === playerChar) {
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
             match++;
             e++;
         } else {
             match = 0;
             e++;
         }
-<<<<<<< HEAD
-        if(match == 4){
+        if (match == 4) {
             console.log('VICTOLY');
-=======
-        if (match === 4) {
-            console.log('YOU WIN!!!');
->>>>>>> da240f4ddb24eeb4ae8df5c8f397195dc105bbb2
+            if (match === 4) {
+                console.log('YOU WIN!!!');
+            }
         }
+        match = 0;
     }
-    match = 0;
 }
 function checkVert(){
     for(var e =0; e < masterArrayTwo.length; e){
@@ -346,4 +322,39 @@ function checkVert(){
         }
     }
     match = 0;
+}
+
+function checkDiag() {
+    if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            for (var rowIndex = 0, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+                if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+                    match++;
+                    rowIndex++;
+                    colIndex++;
+                } else {
+                    rowIndex++;
+                    colIndex++;
+                    match = 0;
+                }
+                if (match === 4) {
+                    console.log('YOU WIN!!');
+                }
+            }
+            for (var rowIndex = masterArrayTwo[tokenRow].length - 1, colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex > masterArrayTwo.length; rowIndex, colIndex) {
+                if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+                    match++;
+                    rowIndex--;
+                    colIndex++;
+                } else {
+                    rowIndex--;
+                    colIndex++;
+                    match = 0;
+                }
+                if (match === 4) {
+                    console.log('YOU WIN!!');
+                }
+            }
+        }
+    }
 }
