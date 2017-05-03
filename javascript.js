@@ -8,7 +8,6 @@ $(document).ready(function(){
     $('.header-column4').click(dropPieceFour);
     $('.header-column5').click(dropPieceFive);
 });
-
 var playerNumber = 0;
 var playerChar = null;
 var masterArray = [];
@@ -16,8 +15,6 @@ var masterArrayTwo = [[],[],[],[],[]];
 var tokenColumn = null;
 var tokenRow = null;
 var playerColor = null;
-var currentPosition = null;
-
 
 function makeGrid(){
     for(var p = 0; p < 6; p++){
@@ -39,7 +36,6 @@ function makeGrid(){
             });
             $('#mainBody').append(newDiv);
             divArray.push(newDiv);
-
         }
         masterArray.push(divArray);
     }
@@ -63,31 +59,14 @@ function playerTurn() {
 function dropPieceZero(){
     var column = 0;
     var row = 4;
-    if(!masterArrayTwo[row][column]){
-        masterArrayTwo[row][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row;
-        $('#row4-col0').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 1][column]){
-        masterArrayTwo[row - 1][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 1;
-        $('#row3-col0').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 2][column]){
-        masterArrayTwo[row - 2][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 2;
-        $('#row2-col0').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 3][column]){
-        masterArrayTwo[row - 3][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 3;
-        $('#row1-col0').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 4][column]){
-        masterArrayTwo[row - 4][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 4;
-        $('#row0-col0').css('background-color', playerColor);
+    for(; row >= 0; row--){
+        if(!masterArrayTwo[row][column]){
+            masterArrayTwo[row][column] = playerChar;
+            tokenColumn = column;
+            tokenRow = row;
+            $('#row'+row+'-col'+column).css('background-color', playerColor);
+            break;
+        }
     }
     checkHorizontal();
     checkVert();
@@ -97,31 +76,14 @@ function dropPieceZero(){
 function dropPieceOne(){
     var column = 1;
     var row = 4;
-    if(!masterArrayTwo[row][column]){
-        masterArrayTwo[row][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row;
-        $('#row4-col1').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 1][column]){
-        masterArrayTwo[row - 1][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 1;
-        $('#row3-col1').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 2][column]){
-        masterArrayTwo[row - 2][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 2;
-        $('#row2-col1').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 3][column]){
-        masterArrayTwo[row - 3][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 3;
-        $('#row1-col1').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 4][column]){
-        masterArrayTwo[row - 4][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 4;
-        $('#row0-col1').css('background-color', playerColor);
+    for(; row >= 0; row--){
+        if(!masterArrayTwo[row][column]){
+            masterArrayTwo[row][column] = playerChar;
+            tokenColumn = column;
+            tokenRow = row;
+            $('#row'+row+'-col'+column).css('background-color', playerColor);
+            break;
+        }
     }
     checkHorizontal();
     checkVert();
@@ -131,33 +93,16 @@ function dropPieceOne(){
 function dropPieceTwo(){
     var column = 2;
     var row = 4;
-    if(!masterArrayTwo[row][column]){
-        masterArrayTwo[row][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row;
-        $('#row4-col2').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 1][column]){
-        masterArrayTwo[row - 1][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 1;
-        $('#row3-col2').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 2][column]){
-        masterArrayTwo[row - 2][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 2;
-        $('#row2-col2').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 3][column]){
-        masterArrayTwo[row - 3][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 3;
-        $('#row1-col2').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 4][column]){
-        masterArrayTwo[row - 4][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 4;
-        $('#row0-col2').css('background-color', playerColor);
+    for(; row >= 0; row--){
+        if(!masterArrayTwo[row][column]){
+            masterArrayTwo[row][column] = playerChar;
+            tokenColumn = column;
+            tokenRow = row;
+            $('#row'+row+'-col'+column).css('background-color', playerColor);
+            break;
+        }
     }
-    checkHorizontal()
+    checkHorizontal();
     checkVert();
     playerTurn();
 }
@@ -165,31 +110,14 @@ function dropPieceTwo(){
 function dropPieceThree(){
     var column = 3;
     var row = 4;
-    if(!masterArrayTwo[row][column]){
-        masterArrayTwo[row][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row;
-        $('#row4-col3').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 1][column]){
-        masterArrayTwo[row - 1][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 1;
-        $('#row3-col3').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 2][column]){
-        masterArrayTwo[row - 2][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 2;
-        $('#row2-col3').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 3][column]){
-        masterArrayTwo[row - 3][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 3;
-        $('#row1-col3').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 4][column]){
-        masterArrayTwo[row - 4][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 4;
-        $('#row0-col3').css('background-color', playerColor);
+    for(; row >= 0; row--){
+        if(!masterArrayTwo[row][column]){
+            masterArrayTwo[row][column] = playerChar;
+            tokenColumn = column;
+            tokenRow = row;
+            $('#row'+row+'-col'+column).css('background-color', playerColor);
+            break;
+        }
     }
     checkHorizontal();
     checkVert();
@@ -199,65 +127,31 @@ function dropPieceThree(){
 function dropPieceFour(){
     var column = 4;
     var row = 4;
-    if(!masterArrayTwo[row][column]){
-        masterArrayTwo[row][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row;
-        $('#row4-col4').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 1][column]){
-        masterArrayTwo[row - 1][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 1;
-        $('#row3-col4').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 2][column]){
-        masterArrayTwo[row - 2][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 2;
-        $('#row2-col4').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 3][column]){
-        masterArrayTwo[row - 3][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 3;
-        $('#row1-col4').css('background-color', playerColor);
-    }else if(!masterArrayTwo[row - 4][column]){
-        masterArrayTwo[row - 4][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 4;
-        $('#row0-col4').css('background-color', playerColor);
+    for(; row >= 0; row--){
+        if(!masterArrayTwo[row][column]){
+            masterArrayTwo[row][column] = playerChar;
+            tokenColumn = column;
+            tokenRow = row;
+            $('#row'+row+'-col'+column).css('background-color', playerColor);
+            break;
+        }
     }
     checkHorizontal();
     checkVert();
     playerTurn();
 }
 
-function dropPieceFive() {
+function dropPieceFive(){
     var column = 5;
     var row = 4;
-    if (!masterArrayTwo[row][column]) {
-        masterArrayTwo[row][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row;
-        $('#row4-col5').css('background-color', playerColor);
-    } else if (!masterArrayTwo[row - 1][column]) {
-        masterArrayTwo[row - 1][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 1;
-        $('#row3-col5').css('background-color', playerColor);
-    } else if (!masterArrayTwo[row - 2][column]) {
-        masterArrayTwo[row - 2][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 2;
-        $('#row2-col5').css('background-color', playerColor);
-    } else if (!masterArrayTwo[row - 3][column]) {
-        masterArrayTwo[row - 3][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 3;
-        $('#row1-col5').css('background-color', playerColor);
-    } else if (!masterArrayTwo[row - 4][column]) {
-        masterArrayTwo[row - 4][column] = playerChar;
-        tokenColumn = column;
-        tokenRow = row - 4;
-        $('#row0-col5').css('background-color', playerColor);
+    for(; row >= 0; row--){
+        if(!masterArrayTwo[row][column]){
+            masterArrayTwo[row][column] = playerChar;
+            tokenColumn = column;
+            tokenRow = row;
+            $('#row'+row+'-col'+column).css('background-color', playerColor);
+            break;
+        }
     }
     checkHorizontal();
     checkVert();
@@ -283,7 +177,7 @@ function checkHorizontal() {
 }
 function checkVert(){
     for(var e =0; e < masterArrayTwo.length; e){
-        if(masterArrayTwo[e][tokenColumn] == playerChar){
+        if(masterArrayTwo[e][tokenColumn] === playerChar){
             match++;
             e++;
         }else{
@@ -296,3 +190,4 @@ function checkVert(){
     }
     match = 0;
 }
+
