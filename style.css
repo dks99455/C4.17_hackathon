@@ -1,0 +1,45 @@
+body{
+    background-color: #333333;
+}
+#mainBody{
+    width: 70vw;
+    height: 80vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+}
+#mainBody div{
+    width: 16%;
+    height: 20%;
+    background-color: white;
+    border: .1vh solid black;
+    float: left;
+    left: 50%;
+}
+#mainBody div.header-column0, #mainBody div.header-column1, #mainBody div.header-column2, #mainBody div.header-column3, #mainBody div.header-column4, #mainBody div.header-column5{
+    width: 16%;
+    height: 10%;
+    background-color: lightgrey;
+    border: .1vh solid black;
+    float: left;
+    left: 50%;
+    text-align: center;
+}
+
+.whos_turn {
+    padding: 5px ;
+    display: inline;
+}
+
+.player1_turn {
+    background-color: lightgreen;
+}
+
+.player2_turn {
+    background-color: #ffff99;
+}
+
+.hidden {
+    display: none;
+}
