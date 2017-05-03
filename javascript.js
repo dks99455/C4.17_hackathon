@@ -253,9 +253,47 @@ function checkVert(){
 
 
 function checkDiag() {
+    if (masterArrayTwo[masterArrayTwo.length - 5].length !== 0) {
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 5; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+                if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+                    match++;
+                    rowIndex++;
+                    colIndex++;
+                } else {
+                    rowIndex++;
+                    colIndex++;
+                    match = 0;
+                }
+                if (match === 4) {
+                    console.log('YOU WIN!!');
+                    match = 0;
+                    return false;
+                }
+            }
+            match = 0;
+            for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 5; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+                if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+                    match++;
+                    rowIndex--;
+                    colIndex++;
+                } else {
+                    rowIndex--;
+                    colIndex++;
+                    match = 0;
+                }
+                if (match === 4) {
+                    console.log('YOU WIN!!');
+                    match = 0;
+                    return false;
+                }
+            }
+            match = 0;
+        }
+    }
     if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {
         for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
-            for (var rowIndex = 0, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
                 if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
                     match++;
                     rowIndex++;
@@ -267,9 +305,12 @@ function checkDiag() {
                 }
                 if (match === 4) {
                     console.log('YOU WIN!!');
+                    match = 0;
+                    return false;
                 }
             }
-            for (var rowIndex = masterArrayTwo[tokenRow].length - 1, colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex > masterArrayTwo.length; rowIndex, colIndex) {
+            match = 0;
+            for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
                 if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
                     match++;
                     rowIndex--;
@@ -281,8 +322,11 @@ function checkDiag() {
                 }
                 if (match === 4) {
                     console.log('YOU WIN!!');
+                    match = 0;
+                    return false;
                 }
             }
+            match = 0;
         }
     }
 }
