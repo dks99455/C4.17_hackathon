@@ -1,6 +1,5 @@
 body{
-    /*background-color: #333333;*/
-    background-color: lightsalmon;
+    background-color: #333333;
 }
 #mainBody{
     width: 70vw;
@@ -17,11 +16,8 @@ body{
     border: .1vh solid black;
     float: left;
     left: 50%;
-    /*-moz-border-radius: 60%;*/
-    /*-webkit-border-radius: 60%;*/
-    /*border-radius: 60%;*/
 }
-.header-column0, .header-column1, .header-column2, .header-column3, .header-column4, .header-column5{
+#mainBody div.header-column0, #mainBody div.header-column1, #mainBody div.header-column2, #mainBody div.header-column3, #mainBody div.header-column4, #mainBody div.header-column5{
     width: 16%;
     height: 10%;
     background-color: lightgrey;
