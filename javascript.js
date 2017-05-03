@@ -12,6 +12,7 @@ var masterArrayTwo = [[],[],[],[],[]];
 var tokenColumn = null;
 var tokenRow = null;
 
+
 function makeGrid(){
     for(var p = 0; p < 6; p++){
         var headerDiv = $('<div>',{
@@ -193,4 +194,25 @@ function dropPieceFive(){
         tokenColumn = column;
         tokenRow = row - 4;
     }
+
+//david
+var match = 0;
+function checkHorizontal(){
+    var i = tokenRow;
+    for(var e = 0; e < divArray.length; e){
+        $(masterArray[i][e]).find(playerValue);
+        if(masterArray[i][e].attr(data-value) == playerValue){
+            match++;
+            e++;
+        } else {
+            match = 0;
+            e++;
+        }
+        if(match = 4){
+            console.log('VICTOLY');
+        }
+    }
+
+
+
 }
