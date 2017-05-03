@@ -1,5 +1,6 @@
 $(document).ready(function(){
     makeGrid();
+    playerTurn();
     $('.header-column0').click(dropPieceZero);
     $('.header-column1').click(dropPieceOne);
     $('.header-column2').click(dropPieceTwo);
@@ -7,6 +8,9 @@ $(document).ready(function(){
     $('.header-column4').click(dropPieceFour);
     $('.header-column5').click(dropPieceFive);
 });
+
+var playerNumber = 0;
+var playerChar = 1;
 var masterArray = [];
 var masterArrayTwo = [[],[],[],[],[]];
 var tokenColumn = null;
@@ -38,6 +42,19 @@ function makeGrid(){
         masterArray.push(divArray);
     }
     console.log(masterArray);
+}
+
+//PLAYER TURN
+function playerTurn() {
+    if(playerNumber % 2 === 0){
+        playerChar = 'x';
+        $('').text("Player 1 Turn");
+        playerNumber++;
+    } else if(playerNumber % 2 === 1){
+        playerChar = 'o'
+        $('').text("Player 2 Turn");
+        playerNumber++;
+    }
 }
 
 function dropPieceZero(){
@@ -212,7 +229,4 @@ function checkHorizontal(){
             console.log('VICTOLY');
         }
     }
-
-
-
 }
