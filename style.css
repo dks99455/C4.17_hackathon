@@ -43,3 +43,9 @@ body{
 .hidden {
     display: none;
 }
+
+.winDiv {
+    color: white;
+    height: 50vh;
+    width: 50vh;
+}

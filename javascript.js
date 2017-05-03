@@ -230,7 +230,8 @@ function checkHorizontal() {
             e++;
         }
         if (match === 4) {
-            console.log('YOU WIN!!!');
+            gameWon();
+            return;
         }
     }
     match = 0;
@@ -245,11 +246,13 @@ function checkVert(){
             match = 0;
         }
         if(match === 4){
-            console.log('YOU WIN!!');
+            gameWon();
+            return;
         }
     }
     match = 0;
 }
+
 
 
 function checkDiag() {
@@ -350,5 +353,13 @@ function resetGame() {
     playerTurn();
 }
 
+function gameWon() {
+    $('#mainBody div').hide();
+    var winDiv = $('<div>',{
+        text: "You Win!",
+        class: "winDiv"
+    });
+    $('body').append(winDiv);
+}
 
 
