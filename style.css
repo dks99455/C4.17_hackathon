@@ -26,3 +26,20 @@ body{
     left: 50%;
     text-align: center;
 }
+
+.whos_turn {
+    padding: 5px ;
+    display: inline;
+}
+
+.player1_turn {
+    background-color: lightgreen;
+}
+
+.player2_turn {
+    background-color: #ffff99;
+}
+
+.hidden {
+    display: none;
+}
