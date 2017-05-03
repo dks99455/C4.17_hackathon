@@ -81,6 +81,7 @@ function dropPieceZero(){
         tokenColumn = column;
         tokenRow = row - 4;
     }
+    checkHorizontal();
 }
 
 function dropPieceOne(){
@@ -107,6 +108,7 @@ function dropPieceOne(){
         tokenColumn = column;
         tokenRow = row - 4;
     }
+    checkHorizontal();
 }
 
 function dropPieceTwo(){
@@ -133,6 +135,7 @@ function dropPieceTwo(){
         tokenColumn = column;
         tokenRow = row - 4;
     }
+    checkHorizontal();
 }
 
 function dropPieceThree(){
@@ -159,6 +162,7 @@ function dropPieceThree(){
         tokenColumn = column;
         tokenRow = row - 4;
     }
+    checkHorizontal();
 }
 
 function dropPieceFour(){
@@ -185,47 +189,49 @@ function dropPieceFour(){
         tokenColumn = column;
         tokenRow = row - 4;
     }
+    checkHorizontal();
 }
 
-function dropPieceFive(){
+function dropPieceFive() {
     var column = 5;
     var row = 4;
-    if(!masterArrayTwo[row][column]){
+    if (!masterArrayTwo[row][column]) {
         masterArrayTwo[row][column] = 'x';
         tokenColumn = column;
         tokenRow = row;
-    }else if(!masterArrayTwo[row - 1][column]){
+    } else if (!masterArrayTwo[row - 1][column]) {
         masterArrayTwo[row - 1][column] = 'x';
         tokenColumn = column;
         tokenRow = row - 1;
-    }else if(!masterArrayTwo[row - 2][column]){
+    } else if (!masterArrayTwo[row - 2][column]) {
         masterArrayTwo[row - 2][column] = 'x';
         tokenColumn = column;
         tokenRow = row - 2;
-    }else if(!masterArrayTwo[row - 3][column]){
+    } else if (!masterArrayTwo[row - 3][column]) {
         masterArrayTwo[row - 3][column] = 'x';
         tokenColumn = column;
         tokenRow = row - 3;
-    }else if(!masterArrayTwo[row - 4][column]){
+    } else if (!masterArrayTwo[row - 4][column]) {
         masterArrayTwo[row - 4][column] = 'x';
         tokenColumn = column;
         tokenRow = row - 4;
     }
+    checkHorizontal();
+}
 
-//david
+//check function
 var match = 0;
 function checkHorizontal(){
-    var i = tokenRow;
-    for(var e = 0; e < divArray.length; e){
-        $(masterArray[i][e]).find(playerValue);
-        if(masterArray[i][e].attr(data-value) == playerValue){
+    for(var e = 0; e < tokenRow.length; e){
+
+        if($(masterArrayTwo[tokenRow][e]).attr('data-value') == playerChar){
             match++;
             e++;
         } else {
             match = 0;
             e++;
         }
-        if(match = 4){
+        if(match == 4){
             console.log('VICTOLY');
         }
     }
