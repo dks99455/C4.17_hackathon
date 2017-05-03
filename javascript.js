@@ -75,6 +75,7 @@ function dropPieceZero(){
     }
     checkHorizontal();
     checkVert();
+    checkDiag();
     playerTurn();
 }
 
@@ -92,6 +93,7 @@ function dropPieceOne(){
     }
     checkHorizontal();
     checkVert();
+    checkDiag();
     playerTurn();
 }
 
@@ -109,6 +111,7 @@ function dropPieceTwo(){
     }
     checkHorizontal();
     checkVert();
+    checkDiag();
     playerTurn();
 }
 
@@ -126,6 +129,7 @@ function dropPieceThree(){
     }
     checkHorizontal();
     checkVert();
+    checkDiag();
     playerTurn();
 }
 
@@ -143,6 +147,7 @@ function dropPieceFour(){
     }
     checkHorizontal();
     checkVert();
+    checkDiag();
     playerTurn();
 }
 
@@ -160,11 +165,13 @@ function dropPieceFive(){
     }
     checkHorizontal();
     checkVert();
+    checkDiag();
     playerTurn();
 }
 
-//check function
+//check functions
 var match = 0;
+
 function checkHorizontal() {
     for (var e = 0; e < masterArrayTwo[tokenRow].length; e) {
         if (masterArrayTwo[tokenRow][e] === playerChar) {
@@ -174,11 +181,14 @@ function checkHorizontal() {
             match = 0;
             e++;
         }
-        if (match === 4) {
-            console.log('YOU WIN!!!');
+        if (match == 4) {
+            console.log('VICTOLY');
+            if (match === 4) {
+                console.log('YOU WIN!!!');
+            }
         }
+        match = 0;
     }
-    match = 0;
 }
 function checkVert(){
     for(var e =0; e < masterArrayTwo.length; e){
@@ -196,6 +206,41 @@ function checkVert(){
     match = 0;
 }
 
+
+function checkDiag() {
+    if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            for (var rowIndex = 0, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+                if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+                    match++;
+                    rowIndex++;
+                    colIndex++;
+                } else {
+                    rowIndex++;
+                    colIndex++;
+                    match = 0;
+                }
+                if (match === 4) {
+                    console.log('YOU WIN!!');
+                }
+            }
+            for (var rowIndex = masterArrayTwo[tokenRow].length - 1, colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex > masterArrayTwo.length; rowIndex, colIndex) {
+                if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+                    match++;
+                    rowIndex--;
+                    colIndex++;
+                } else {
+                    rowIndex--;
+                    colIndex++;
+                    match = 0;
+                }
+                if (match === 4) {
+                    console.log('YOU WIN!!');
+                }
+            }
+        }
+    }
+}
 
     // RESET THE GAME
 function resetGame() {
