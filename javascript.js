@@ -7,6 +7,8 @@ $(document).ready(function(){
     $('.header-column3').click(dropPieceThree);
     $('.header-column4').click(dropPieceFour);
     $('.header-column5').click(dropPieceFive);
+    $('.reset_button').click(resetGame);
+
 });
 
 var playerNumber = 0;
@@ -16,7 +18,6 @@ var masterArrayTwo = [[],[],[],[],[]];
 var tokenColumn = null;
 var tokenRow = null;
 var playerColor = null;
-var currentPosition = null;
 
 
 function makeGrid(){
@@ -45,16 +46,19 @@ function makeGrid(){
     }
 }
 
-//PLAYER TURN
 function playerTurn() {
     if(playerNumber % 2 === 0){
         playerChar = 'x';
-        $('').text("Player 1 Turn");
+        $('.whos_turn').text("You're move Player 1!");
+        $('.whos_turn').removeClass('player2_turn');
+        $('.whos_turn').addClass('player1_turn');
         playerColor = 'lightgreen';
         playerNumber++;
     } else if(playerNumber % 2 === 1){
         playerChar = 'o';
-        $('').text("Player 2 Turn");
+        $('.whos_turn').text("You're move Player 2!");
+        $('.whos_turn').removeClass('player1_turn');
+        $('.whos_turn').addClass('player2_turn');
         playerColor = '#ffff99';
         playerNumber++;
     }
@@ -296,3 +300,17 @@ function checkVert(){
     }
     match = 0;
 }
+
+    // RESET THE GAME
+function resetGame() {
+    playerNumber = 0;
+    playerChar = null;
+    masterArray = [];
+    masterArrayTwo = [[],[],[],[],[]];
+    tokenColumn = null;
+    tokenRow = null;
+    playerColor = null;
+    $('#mainBody div').css('background-color', "");
+    playerTurn();
+}
+
