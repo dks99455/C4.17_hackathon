@@ -51,6 +51,11 @@ body{
     opacity: 0.9;
 }
 
+.player3_turn{
+    background-color: blue;
+    opacity: 0.9;
+}
+
 .hidden {
     display: none;
 }
@@ -58,7 +63,7 @@ body{
 
 #winner{
     width: 100vw;
-    height: 80vh;
+    height: 95vh;
     position: absolute;
     background-image: url(images/GoTLogo.jpg);
     background-size: 100%;
