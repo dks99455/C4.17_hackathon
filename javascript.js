@@ -1,7 +1,10 @@
 $(document).ready(function(){
     makeGrid();
+    playerTurn();
 });
 var masterArray = [];
+var playerNumber = 0;
+var playerChar = 1;
 
 function makeGrid(){
     for(var p = 0; p < 6; p++){
@@ -26,3 +29,17 @@ function makeGrid(){
     }
     console.log(masterArray);
 }
+
+//PLAYER TURN
+function playerTurn() {
+    if(playerNumber % 2 === 0){
+        playerChar = 'x';
+        $('').text("Player 1 Turn");
+        playerNumber++;
+    } else if(playerNumber % 2 === 1){
+        playerChar = 'o'
+        $('').text("Player 2 Turn");
+        playerNumber++;
+    }
+}
+
