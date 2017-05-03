@@ -1,5 +1,6 @@
 body{
     background-color: #333333;
+    background-image: url('https://www.windows10update.com/wp-content/uploads/2015/06/Windows10-Game-of-thrones-wallpaper-game-of-thrones-movie-hd-wallpaper-1920x1080-8180.jpg');
 }
 #mainBody{
     width: 70vw;
@@ -8,15 +9,17 @@ body{
     left: 50%;
     transform: translateX(-50%);
     top: 10%;
+    opacity: 0.9;
 }
 #mainBody div{
     width: 16%;
     height: 20%;
     background-color: white;
-    border: .1vh solid black;
+    /*border: .1vh solid black;*/
     float: left;
     left: 50%;
     border-radius: 40% 40% 40% 40%;
+    opacity: 0.9;
 }
 #mainBody div.header-column0, #mainBody div.header-column1, #mainBody div.header-column2, #mainBody div.header-column3, #mainBody div.header-column4, #mainBody div.header-column5{
     width: 16%;
@@ -26,7 +29,7 @@ body{
     float: left;
     left: 50%;
     text-align: center;
-    border-radius: 40% 40% 20% 20%;
+    border-radius: 40% 40% 40% 40%;
 }
 
 .whos_turn {
@@ -35,11 +38,13 @@ body{
 }
 
 .player1_turn {
-    background-color: lightgreen;
+    background-color: darkgrey;
+    opacity: 0.9;
 }
 
 .player2_turn {
-    background-color: #ffff99;
+    background-color: darkred;
+    opacity: 0.9;
 }
 
 .hidden {

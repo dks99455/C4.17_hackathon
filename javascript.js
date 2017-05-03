@@ -55,14 +55,14 @@ function playerTurn() {
         $('.whos_turn').text("You're move Player 1!");
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').addClass('player1_turn');
-        playerColor = 'lightgreen';
+        playerColor = 'darkgrey';
         playerNumber++;
     } else if(playerNumber % 2 === 1){
         playerChar = 'o';
         $('.whos_turn').text("You're move Player 2!");
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').addClass('player2_turn');
-        playerColor = '#ffff99';
+        playerColor = 'darkred';
         playerNumber++;
     }
 }
