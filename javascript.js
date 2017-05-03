@@ -39,7 +39,7 @@ function makeGrid(){
                 id: 'row' + i +'-'+ 'col' + e,
                 'data-row': i,
                 'data-column': e,
-                text: 'row' + i +' ' + 'column' + e,
+                // text: 'row' + i +' ' + 'column' + e,
                 'data-value': 0
             });
             $('#mainBody').append(newDiv);
