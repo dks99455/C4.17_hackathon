@@ -35,8 +35,20 @@ body{
     border-radius: 40% 40% 40% 40%;
 }
 
+header {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.whos_turn, .player1_turn, .player2_turn, .player3_turn {
+    margin: 50px;
+}
+
 .whos_turn {
-    padding: 5px ;
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 15px ;
+    border-radius: 10px;
     display: inline;
 }
 
@@ -56,6 +68,22 @@ body{
     background-color: darkred;
     opacity: 0.9;
     color: white;
+}
+
+button {
+    font-family: 'Cinzel', 'Cormorant SC', serif;
+    height: 40px;
+    border-radius: 10px;
+    font-size: large;
+}
+
+.reset_button {
+    background-color: goldenrod;
+}
+
+.playersButton {
+    color: whitesmoke;
+    background-color: darkred;
 }
 
 .hidden {
