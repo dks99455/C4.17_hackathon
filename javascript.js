@@ -33,21 +33,16 @@ function playerNumSwap(){
         resetGame();
         numberOfPlayers = 3;
         $('.playersButton').text('# of Players: 3');
+        horNonMatch = 'on';
+        vertNonMatch = 'on';
+        diagNonMatch = 'on';
     } else if (numberOfPlayers == 3){
         resetGame();
         numberOfPlayers = 2;
         $('.playersButton').text('# of Players: 2');
-        horNonMatch = 'on';
-        vertNonMatch = 'on';
-        diagNonMatch = 'on';
-        $('.playersButton').text('Number of Players: 3');
-    } else if (numberOfPlayers == 3){
-        resetGame();
-        numberOfPlayers = 2;
         horNonMatch = 'off';
         vertNonMatch = 'off';
         diagNonMatch = 'off';
-        $('.playersButton').text('Number of Players: 2');
     }
 }
 
@@ -575,7 +570,7 @@ function resetGame() {
     colThreeAllowed = true;
     colFourAllowed = true;
     colFiveAllowed = true;
-    if(numberOfPlayers = 3) {
+    if(numberOfPlayers == 3) {
         horNonMatch = 'on';
         vertNonMatch = 'on';
         diagNonMatch = 'on';
