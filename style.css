@@ -1,5 +1,8 @@
 body{
     background-color: #333333;
+    background-image: url('https://www.windows10update.com/wp-content/uploads/2015/06/Windows10-Game-of-thrones-wallpaper-game-of-thrones-movie-hd-wallpaper-1920x1080-8180.jpg');
+    font-family: 'Cinzel', 'Cormorant SC', serif;
+    user-select: none;
 }
 #mainBody{
     width: 70vw;
@@ -8,14 +11,18 @@ body{
     left: 50%;
     transform: translateX(-50%);
     top: 10%;
+    opacity: 0.9;
 }
 #mainBody div{
     width: 16%;
     height: 20%;
     background-color: white;
-    border: .1vh solid black;
+    /*border: .1vh solid black;*/
     float: left;
     left: 50%;
+    border-radius: 40% 40% 40% 40%;
+    /*opacity: 0.9;*/
+    background-size: 100% 100%;
 }
 #mainBody div.header-column0, #mainBody div.header-column1, #mainBody div.header-column2, #mainBody div.header-column3, #mainBody div.header-column4, #mainBody div.header-column5{
     width: 16%;
@@ -25,21 +32,76 @@ body{
     float: left;
     left: 50%;
     text-align: center;
+    border-radius: 40% 40% 40% 40%;
+}
+
+header {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.whos_turn, .player1_turn, .player2_turn, .player3_turn {
+    margin: 50px;
 }
 
 .whos_turn {
-    padding: 5px ;
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 15px ;
+    border-radius: 10px;
     display: inline;
 }
 
 .player1_turn {
-    background-color: lightgreen;
+    background-color: darkgrey;
+    opacity: 0.9;
+    color: white;
 }
 
 .player2_turn {
-    background-color: #ffff99;
+    background-color: #2e2759;
+    opacity: 0.9;
+    color: white;
+}
+
+.player3_turn{
+    background-color: darkred;
+    opacity: 0.9;
+    color: white;
+}
+
+button {
+    font-family: 'Cinzel', 'Cormorant SC', serif;
+    height: 40px;
+    border-radius: 10px;
+    font-size: large;
+}
+
+.reset_button {
+    background-color: goldenrod;
+}
+
+.playersButton {
+    color: whitesmoke;
+    background-color: darkred;
 }
 
 .hidden {
     display: none;
+}
+
+
+#winner{
+    width: 100vw;
+    height: 95vh;
+    position: absolute;
+    background-image: url(images/GoTLogo.jpg);
+    background-size: 100%;
+    text-align: center;
+    font-size: large;
+    margin: auto;
+}
+.hider{
+    display: none;
+
 }

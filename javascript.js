@@ -1,22 +1,55 @@
 $(document).ready(function(){
     makeGrid();
     playerTurn();
-    $('.header-column0').click(dropPieceZero);
-    $('.header-column1').click(dropPieceOne);
-    $('.header-column2').click(dropPieceTwo);
-    $('.header-column3').click(dropPieceThree);
-    $('.header-column4').click(dropPieceFour);
-    $('.header-column5').click(dropPieceFive);
+    $('.header-column0').on('click', dropPieceZero);
+    $('.header-column1').on('click', dropPieceOne);
+    $('.header-column2').on('click', dropPieceTwo);
+    $('.header-column3').on('click', dropPieceThree);
+    $('.header-column4').on('click', dropPieceFour);
+    $('.header-column5').on('click', dropPieceFive);
     $('.reset_button').click(resetGame);
-
+    $('.playersButton').on('click', playerNumSwap);
 });
 var playerNumber = 0;
+var numberOfPlayers = 2;
 var playerChar = null;
 var masterArray = [];
 var masterArrayTwo = [[],[],[],[],[]];
 var tokenColumn = null;
 var tokenRow = null;
 var playerColor = null;
+var colZeroAllowed = true;
+var colOneAllowed = true;
+var colTwoAllowed = true;
+var colThreeAllowed = true;
+var colFourAllowed = true;
+var colFiveAllowed = true;
+var horNonMatch = 'off';
+var vertNonMatch = 'off';
+var diagNonMatch = 'off';
+
+function playerNumSwap(){
+    if(numberOfPlayers == 2){
+        resetGame();
+        numberOfPlayers = 3;
+        $('.playersButton').text('# of Players: 3');
+    } else if (numberOfPlayers == 3){
+        resetGame();
+        numberOfPlayers = 2;
+        $('.playersButton').text('# of Players: 2');
+        horNonMatch = 'on';
+        vertNonMatch = 'on';
+        diagNonMatch = 'on';
+        $('.playersButton').text('Number of Players: 3');
+    } else if (numberOfPlayers == 3){
+        resetGame();
+        numberOfPlayers = 2;
+        horNonMatch = 'off';
+        vertNonMatch = 'off';
+        diagNonMatch = 'off';
+        $('.playersButton').text('Number of Players: 2');
+    }
+}
 
 function makeGrid(){
     for(var p = 0; p < 6; p++){
@@ -33,7 +66,7 @@ function makeGrid(){
                 id: 'row' + i +'-'+ 'col' + e,
                 'data-row': i,
                 'data-column': e,
-                text: 'row' + i +' ' + 'column' + e,
+                // text: 'row' + i +' ' + 'column' + e,
                 'data-value': 0
             });
             $('#mainBody').append(newDiv);
@@ -44,129 +77,363 @@ function makeGrid(){
 }
 
 function playerTurn() {
-    if(playerNumber % 2 === 0){
+    if(playerNumber % numberOfPlayers === 0){
         playerChar = 'x';
-        $('.whos_turn').text("You're move Player 1!");
+        $('.whos_turn').text("Your move House Stark!");
         $('.whos_turn').removeClass('player2_turn');
+        $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player1_turn');
-        playerColor = 'lightgreen';
+        playerColor = 'url(images/houseofstark.jpg)';
         playerNumber++;
-    } else if(playerNumber % 2 === 1){
+    } else if(playerNumber % numberOfPlayers === 1){
         playerChar = 'o';
-        $('.whos_turn').text("You're move Player 2!");
+        $('.whos_turn').text("Your move House Arryn!");
         $('.whos_turn').removeClass('player1_turn');
+        $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player2_turn');
-        playerColor = '#ffff99';
+        playerColor = 'url(images/houseofarryn.jpg)';
+        playerNumber++;
+    } else {
+        playerChar = 'y';
+        $('.whos_turn').text("Your move House Lannister");
+        $('.whos_turn').removeClass('player1_turn');
+        $('.whos_turn').removeClass('player2_turn');
+        $('.whos_turn').addClass('player3_turn');
+        playerColor = 'url(images/houseoflannister.jpg)';
         playerNumber++;
     }
 }
 
-function dropPieceZero(){
-    var column = 0;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+//extra req
+
+function threeDifferent(){
+    threeHorizontal();
+    threeVert();
+
+    var nonMatch = 0;
+    var currentPlayer;
+    var secondPlayer;
+    var thirdPlayer;
+    function threeHorizontal() {
+        if(horNonMatch == 'on') {
+            for (var e = 0; e < masterArrayTwo[tokenRow].length; e) {
+                if (masterArrayTwo[tokenRow][e] !== undefined) {
+                    currentPlayer = masterArrayTwo[tokenRow][e];
+                    if (masterArrayTwo[tokenRow][e + 1] !== currentPlayer && masterArrayTwo[tokenRow][e + 1] !== undefined) {
+                        secondPlayer = masterArrayTwo[tokenRow][e + 1];
+                        if (masterArrayTwo[tokenRow][e + 2] !== currentPlayer && masterArrayTwo[tokenRow][e + 2] !== secondPlayer) {
+                            if (masterArrayTwo[tokenRow][e + 2] !== undefined) {
+                                thirdPlayer = masterArrayTwo[tokenRow][e + 2];
+                                console.log('HORIZONTAL TRI-NON-MATCH');
+                                horNonMatch = 'off';
+                            }
+                        }
+                    }
+                    e++
+                } else {
+                    e++;
+                }
+            }
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
+    function threeVert(){
+        if(vertNonMatch == 'on') {
+            for (var e = masterArrayTwo.length - 1; e >= 0; e) {
+                if (masterArrayTwo[e][tokenColumn] !== undefined) {
+                    currentPlayer = masterArrayTwo[e][tokenColumn];
+                    if (masterArrayTwo[e - 1][tokenColumn] !== currentPlayer && masterArrayTwo[e - 1][tokenColumn] !== undefined) {
+                        secondPlayer = masterArrayTwo[e - 1][tokenColumn];
+                        if (masterArrayTwo[e - 2][tokenColumn] !== currentPlayer && masterArrayTwo[e - 2][tokenColumn] !== secondPlayer) {
+                            if (masterArrayTwo[e - 2][tokenColumn] !== undefined) {
+                                thirdPlayer = masterArrayTwo[e - 2][tokenColumn];
+                                console.log('VERTICAL TRI-NON-MATCH');
+                                vertNonMatch = 'off';
+                            }
+                        }
+                    }
+                    e--;
+                } else {
+                    e--;
+                }
+            }
+        }
+    }
+    function threeDiag() {
+        if (masterArrayTwo[masterArrayTwo.length - 1].length !== 0) {
+            for (var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++) {
+                for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 1; rowIndex < masterArrayTwo[tokenRow].length, colIndex >= 0; rowIndex, colIndex) {
+                    if (masterArrayTwo[colIndex][rowIndex] !== undefined) {
+                        currentPlayer = masterArrayTwo[colIndex][rowIndex];
+                        if (masterArrayTwo[colIndex - 1][rowIndex + 1] !== currentPlayer && masterArrayTwo[colIndex - 1][rowIndex + 1] !== undefined) {
+                            secondPlayer = masterArrayTwo[colIndex - 1][rowIndex + 1];
+                            if (masterArrayTwo[colIndex - 2][rowIndex + 2] !== currentPlayer && masterArrayTwo[colIndex - 2][rowIndex + 2] !== secondPlayer) {
+                                if (masterArrayTwo[colIndex - 2][rowIndex - 2] !== undefined) {
+                                    thirdPlayer = masterArrayTwo[colIndex - 2][rowIndex - 2];
+                                    console.log('DIAGONAL TRI-NON-MATCH');
+                                    diagNonMatch = 'off';
+                                }
+                            }
+                        }
+                        rowIndex++;
+                        colIndex--;
+                    } else {
+                        rowIndex++;
+                        colIndex--;
+                    }
+                }
+                for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 1; rowIndex >= 0, colIndex >= 0; rowIndex, colIndex) {
+                    if (masterArrayTwo[colIndex][rowIndex] !== undefined) {
+                        currentPlayer = masterArrayTwo[colIndex][rowIndex];
+                        if (masterArrayTwo[colIndex - 1][rowIndex - 1] !== currentPlayer && masterArrayTwo[colIndex - 1][rowIndex - 1] !== undefined) {
+                            secondPlayer = masterArrayTwo[colIndex - 1][rowIndex - 1];
+                            if (masterArrayTwo[colIndex - 2][rowIndex - 2] !== currentPlayer && masterArrayTwo[colIndex - 2][rowIndex - 2] !== secondPlayer) {
+                                if (masterArrayTwo[colIndex - 2][rowIndex - 2] !== undefined) {
+                                    thirdPlayer = masterArrayTwo[colIndex - 2][rowIndex - 2];
+                                    console.log('DIAGONAL TRI-NON-MATCH');
+                                    diagNonMatch = 'off';
+                                }
+                            }
+                        }
+                        rowIndex--;
+                        colIndex--;
+                    } else {
+                        rowIndex--;
+                        colIndex--;
+                    }
+                }
+            }
+            // }
+            // if (masterArrayTwo[masterArrayTwo.length - 2].length !== 0) {
+            //     for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            //         for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex++;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex++;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 4) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //         for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex--;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex--;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 4) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //     }
+            // }
+            // if (masterArrayTwo[masterArrayTwo.length - 3].length !== 0) {
+            //     for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            //         for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 3; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex++;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex++;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 3) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //         for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 3; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex--;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex--;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 3) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //     }
+        }
+    }
+}
+
+
+
+function dropPieceZero(){
+    if(colZeroAllowed === false){
+        return;
+    }else{
+        var column = 0;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        threeDifferent();
+        playerTurn();
+        if(masterArrayTwo[0][0] && masterArrayTwo[1][0] && masterArrayTwo[2][0] && masterArrayTwo[3][0] && masterArrayTwo[4][0]){
+            colZeroAllowed = false;
+        }
+    }
 }
 
 function dropPieceOne(){
-    var column = 1;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colOneAllowed === false){
+        return;
+    }else{
+        var column = 1;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        threeDifferent();
+        playerTurn();
+        if(masterArrayTwo[0][1] && masterArrayTwo[1][1] && masterArrayTwo[2][1] && masterArrayTwo[3][1] && masterArrayTwo[4][1]){
+            colOneAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceTwo(){
-    var column = 2;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colTwoAllowed === false){
+        return;
+    }else{
+        var column = 2;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        threeDifferent();
+        playerTurn();
+        if(masterArrayTwo[0][2] && masterArrayTwo[1][2] && masterArrayTwo[2][2] && masterArrayTwo[3][2] && masterArrayTwo[4][2]){
+            colTwoAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceThree(){
-    var column = 3;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colThreeAllowed === false){
+        return;
+    }else{
+        var column = 3;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        threeDifferent();
+        playerTurn();
+        if(masterArrayTwo[0][3] && masterArrayTwo[1][3] && masterArrayTwo[2][3] && masterArrayTwo[3][3] && masterArrayTwo[4][3]){
+            colThreeAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceFour(){
-    var column = 4;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colFourAllowed === false){
+        return;
+    }else{
+        var column = 4;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        threeDifferent();
+        playerTurn();
+        if(masterArrayTwo[0][4] && masterArrayTwo[1][4] && masterArrayTwo[2][4] && masterArrayTwo[3][4] && masterArrayTwo[4][4]){
+            colFourAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 function dropPieceFive(){
-    var column = 5;
-    var row = 4;
-    for(; row >= 0; row--){
-        if(!masterArrayTwo[row][column]){
-            masterArrayTwo[row][column] = playerChar;
-            tokenColumn = column;
-            tokenRow = row;
-            $('#row'+row+'-col'+column).css('background-color', playerColor);
-            break;
+    if(colFiveAllowed === false){
+        return;
+    }else{
+        var column = 5;
+        var row = 4;
+        for(; row >= 0; row--){
+            if(!masterArrayTwo[row][column]){
+                masterArrayTwo[row][column] = playerChar;
+                tokenColumn = column;
+                tokenRow = row;
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
+                break;
+            }
+        }
+        checkHorizontal();
+        checkVert();
+        checkDiag();
+        threeDifferent();
+        playerTurn();
+        if(masterArrayTwo[0][5] && masterArrayTwo[1][5] && masterArrayTwo[2][5] && masterArrayTwo[3][5] && masterArrayTwo[4][5]){
+            colFiveAllowed = false;
         }
     }
-    checkHorizontal();
-    checkVert();
-    checkDiag();
-    playerTurn();
 }
 
 //check functions
@@ -182,11 +449,11 @@ function checkHorizontal() {
             e++;
         }
         if (match === 4) {
-            console.log('YOU WIN!!!');
+            gameEnd();
+
         }
     }
     match = 0;
-
 }
 function checkVert(){
     for(var e =0; e < masterArrayTwo.length; e){
@@ -198,16 +465,19 @@ function checkVert(){
             match = 0;
         }
         if(match === 4){
-            console.log('YOU WIN!!');
+
+            gameEnd();
+
         }
     }
     match = 0;
 }
 
 
+
 function checkDiag() {
-    if (masterArrayTwo[masterArrayTwo.length - 5].length !== 0) {
-        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+    if (masterArrayTwo[masterArrayTwo.length - 5].length !== 0) {                       //if the length of the top array is not zero
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){               // do a full check of all possible diagonals starting from the top array
             for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 5; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
                 if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
                     match++;
@@ -219,9 +489,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -236,16 +506,16 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
         }
     }
-    if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {
-        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+    if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {           //if the fourth array from the bottom does not have a length of 0
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){           //do a full check of all diagonals starting from the second array
             for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
                 if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
                     match++;
@@ -257,9 +527,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -274,9 +544,9 @@ function checkDiag() {
                     match = 0;
                 }
                 if (match === 4) {
+                    gameEnd();
                     console.log('YOU WIN!!');
                     match = 0;
-                    return false;
                 }
             }
             match = 0;
@@ -286,6 +556,12 @@ function checkDiag() {
 
     // RESET THE GAME
 function resetGame() {
+    $('.header-column0').off('click', dropPieceZero);
+    $('.header-column1').off('click', dropPieceOne);
+    $('.header-column2').off('click', dropPieceTwo);
+    $('.header-column3').off('click', dropPieceThree);
+    $('.header-column4').off('click', dropPieceFour);
+    $('.header-column5').off('click', dropPieceFive);
     playerNumber = 0;
     playerChar = null;
     masterArray = [];
@@ -293,7 +569,79 @@ function resetGame() {
     tokenColumn = null;
     tokenRow = null;
     playerColor = null;
-    $('#mainBody div').css('background-color', "");
+    colZeroAllowed = true;
+    colOneAllowed = true;
+    colTwoAllowed = true;
+    colThreeAllowed = true;
+    colFourAllowed = true;
+    colFiveAllowed = true;
+    if(numberOfPlayers = 3) {
+        horNonMatch = 'on';
+        vertNonMatch = 'on';
+        diagNonMatch = 'on';
+    }
+    $('#mainBody div').css('background-image', "");
+    $('.header-column0').on('click', dropPieceZero);
+    $('.header-column1').on('click', dropPieceOne);
+    $('.header-column2').on('click', dropPieceTwo);
+    $('.header-column3').on('click', dropPieceThree);
+    $('.header-column4').on('click', dropPieceFour);
+    $('.header-column5').on('click', dropPieceFive);
     playerTurn();
 }
 
+//stop game after match
+function gameEnd(){
+    $('.header-column0').off('click', dropPieceZero);
+    $('.header-column1').off('click', dropPieceOne);
+    $('.header-column2').off('click', dropPieceTwo);
+    $('.header-column3').off('click', dropPieceThree);
+    $('.header-column4').off('click', dropPieceFour);
+    $('.header-column5').off('click', dropPieceFive);
+    if(playerChar == 'x'){
+        $('#winner').css('background-image', 'url(images/winter_is_coming.gif)');
+        $('#winner').removeClass('hider');
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
+        }, 3000);
+        setTimeout(function(){
+            $('#winner').addClass('hider');
+            $('.whos_turn').text("House of Stark Wins!");
+            $('.whos_turn').removeClass('player3_turn');
+            $('.whos_turn').removeClass('player2_turn');
+            $('.whos_turn').addClass('player1_turn');
+            return false;
+        }, 5000)
+    }else if (playerChar == 'o'){
+        $('#winner').css('background-image', 'url(images/placeholder.gif)');
+        $('#winner').removeClass('hider');
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/joffreysmile.gif)')
+        }, 2000);
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
+        }, 3000);
+        setTimeout(function(){
+            $('#winner').addClass('hider');
+            $('.whos_turn').text("House of Arryn Wins!");
+            $('.whos_turn').removeClass('player3_turn');
+            $('.whos_turn').removeClass('player1_turn');
+            $('.whos_turn').addClass('player2_turn');
+            return false;
+        }, 5000)
+    }else if (playerChar == 'y'){
+        $('#winner').css('background-image', 'url(http://imagesmtv-a.akamaihd.net/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/06/test-1433860144.gif?quality=.8&height=226&width=400)');
+        $('#winner').removeClass('hider');
+        setTimeout(function(){
+            $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
+        }, 3000);
+        setTimeout(function(){
+            $('#winner').addClass('hider');
+            $('.whos_turn').text("House of Lannister Wins!");
+            $('.whos_turn').removeClass('player2_turn');
+            $('.whos_turn').removeClass('player1_turn');
+            $('.whos_turn').addClass('player3_turn');
+            return false;
+        }, 5000)
+    }
+}
