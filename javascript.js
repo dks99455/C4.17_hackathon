@@ -65,27 +65,27 @@ function makeGrid(){
 function playerTurn() {
     if(playerNumber % numberOfPlayers === 0){
         playerChar = 'x';
-        $('.whos_turn').text("Your move Player 1!");
+        $('.whos_turn').text("Your move House Stark!");
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player1_turn');
-        playerColor = 'darkgrey';
+        playerColor = 'url(http://unrealitymag.com/wp-content/uploads/2011/09/thrones1.jpg)';
         playerNumber++;
     } else if(playerNumber % numberOfPlayers === 1){
         playerChar = 'o';
-        $('.whos_turn').text("Your move Player 2!");
+        $('.whos_turn').text("Your move House Arryn!");
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player2_turn');
-        playerColor = 'darkred';
+        playerColor = 'url(https://s-media-cache-ak0.pinimg.com/originals/52/80/65/528065918c3a6c9c9c1ae72e13e1ae77.jpg)';
         playerNumber++;
     } else {
         playerChar = 'y';
-        $('.whos_turn').text("Your move Player 3!");
+        $('.whos_turn').text("Your move House Lannister");
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').addClass('player3_turn');
-        playerColor = 'blue';
+        playerColor = 'url(https://s-media-cache-ak0.pinimg.com/originals/d0/b2/c1/d0b2c1070a34ff44acf356b86bb6be64.jpg)';
         playerNumber++;
     }
 }
@@ -101,7 +101,7 @@ function dropPieceZero(){
                 masterArrayTwo[row][column] = playerChar;
                 tokenColumn = column;
                 tokenRow = row;
-                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
                 break;
             }
         }
@@ -126,7 +126,7 @@ function dropPieceOne(){
                 masterArrayTwo[row][column] = playerChar;
                 tokenColumn = column;
                 tokenRow = row;
-                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
                 break;
             }
         }
@@ -151,7 +151,7 @@ function dropPieceTwo(){
                 masterArrayTwo[row][column] = playerChar;
                 tokenColumn = column;
                 tokenRow = row;
-                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
                 break;
             }
         }
@@ -176,7 +176,7 @@ function dropPieceThree(){
                 masterArrayTwo[row][column] = playerChar;
                 tokenColumn = column;
                 tokenRow = row;
-                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
                 break;
             }
         }
@@ -201,7 +201,7 @@ function dropPieceFour(){
                 masterArrayTwo[row][column] = playerChar;
                 tokenColumn = column;
                 tokenRow = row;
-                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
                 break;
             }
         }
@@ -226,7 +226,7 @@ function dropPieceFive(){
                 masterArrayTwo[row][column] = playerChar;
                 tokenColumn = column;
                 tokenRow = row;
-                $('#row'+row+'-col'+column).css('background-color', playerColor);
+                $('#row'+row+'-col'+column).css('background-image', playerColor);
                 break;
             }
         }
@@ -379,7 +379,7 @@ function resetGame() {
     colThreeAllowed = true;
     colFourAllowed = true;
     colFiveAllowed = true;
-    $('#mainBody div').css('background-color', "");
+    $('#mainBody div').css('background-image', "");
     $('.header-column0').on('click', dropPieceZero);
     $('.header-column1').on('click', dropPieceOne);
     $('.header-column2').on('click', dropPieceTwo);
@@ -406,7 +406,7 @@ function gameEnd(){
         }, 3000);
         setTimeout(function(){
             $('#winner').addClass('hider');
-            $('.whos_turn').text("Player 1 wins!");
+            $('.whos_turn').text("House Stark wins!");
             $('.whos_turn').removeClass('player3_turn');
             $('.whos_turn').removeClass('player2_turn');
             $('.whos_turn').addClass('player1_turn');
@@ -423,24 +423,21 @@ function gameEnd(){
         }, 3000);
         setTimeout(function(){
             $('#winner').addClass('hider');
-            $('.whos_turn').text("Player 2 wins!");
+            $('.whos_turn').text("House Arryn wins!");
             $('.whos_turn').removeClass('player3_turn');
             $('.whos_turn').removeClass('player1_turn');
             $('.whos_turn').addClass('player2_turn');
             return false;
         }, 5000)
     }else if (playerChar == 'y'){
-        $('#winner').css('background-image', 'url(images/placeholder.gif)');
+        $('#winner').css('background-image', 'url(http://imagesmtv-a.akamaihd.net/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/06/test-1433860144.gif?quality=.8&height=226&width=400)');
         $('#winner').removeClass('hider');
-        setTimeout(function(){
-            $('#winner').css('background-image', 'url(images/joffreysmile.gif)')
-        }, 2000);
         setTimeout(function(){
             $('#winner').css('background-image', 'url(images/GoTLogo.jpg)')
         }, 3000);
         setTimeout(function(){
             $('#winner').addClass('hider');
-            $('.whos_turn').text("Player 3 wins!");
+            $('.whos_turn').text("House Lannister wins!");
             $('.whos_turn').removeClass('player2_turn');
             $('.whos_turn').removeClass('player1_turn');
             $('.whos_turn').addClass('player3_turn');
