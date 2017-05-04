@@ -29,11 +29,11 @@ function playerNumSwap(){
     if(numberOfPlayers == 2){
         resetGame();
         numberOfPlayers = 3;
-        $('.playersButton').text('Number of Players: 3');
+        $('.playersButton').text('# of Players: 3');
     } else if (numberOfPlayers == 3){
         resetGame();
         numberOfPlayers = 2;
-        $('.playersButton').text('Number of Players: 2');
+        $('.playersButton').text('# of Players: 2');
     }
 }
 
@@ -510,7 +510,6 @@ function resetGame() {
     playerTurn();
 }
 
-
 //stop game after match
 function gameEnd(){
     $('.header-column0').off('click', dropPieceZero);
@@ -527,7 +526,7 @@ function gameEnd(){
         }, 3000);
         setTimeout(function(){
             $('#winner').addClass('hider');
-            $('.whos_turn').text("House Stark wins!");
+            $('.whos_turn').text("House of Stark Wins!");
             $('.whos_turn').removeClass('player3_turn');
             $('.whos_turn').removeClass('player2_turn');
             $('.whos_turn').addClass('player1_turn');
@@ -544,7 +543,7 @@ function gameEnd(){
         }, 3000);
         setTimeout(function(){
             $('#winner').addClass('hider');
-            $('.whos_turn').text("House Arryn wins!");
+            $('.whos_turn').text("House of Arryn Wins!");
             $('.whos_turn').removeClass('player3_turn');
             $('.whos_turn').removeClass('player1_turn');
             $('.whos_turn').addClass('player2_turn');
@@ -558,7 +557,7 @@ function gameEnd(){
         }, 3000);
         setTimeout(function(){
             $('#winner').addClass('hider');
-            $('.whos_turn').text("House Lannister wins!");
+            $('.whos_turn').text("House of Lannister Wins!");
             $('.whos_turn').removeClass('player2_turn');
             $('.whos_turn').removeClass('player1_turn');
             $('.whos_turn').addClass('player3_turn');
@@ -566,6 +565,3 @@ function gameEnd(){
         }, 5000)
     }
 }
-
-
-
