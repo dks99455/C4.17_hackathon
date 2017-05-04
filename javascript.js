@@ -570,7 +570,7 @@ function resetGame() {
     colThreeAllowed = true;
     colFourAllowed = true;
     colFiveAllowed = true;
-    if(numberOfPlayers = 3) {
+    if(numberOfPlayers == 3) {
         horNonMatch = 'on';
         vertNonMatch = 'on';
         diagNonMatch = 'on';
