@@ -1,10 +1,8 @@
 body{
     background-color: #333333;
-
     background-image: url('https://www.windows10update.com/wp-content/uploads/2015/06/Windows10-Game-of-thrones-wallpaper-game-of-thrones-movie-hd-wallpaper-1920x1080-8180.jpg');
-
     font-family: 'Cinzel', 'Cormorant SC', serif;
-
+    user-select: none;
 }
 #mainBody{
     width: 70vw;

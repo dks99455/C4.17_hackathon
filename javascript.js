@@ -24,6 +24,9 @@ var colTwoAllowed = true;
 var colThreeAllowed = true;
 var colFourAllowed = true;
 var colFiveAllowed = true;
+var horNonMatch = 'off';
+var vertNonMatch = 'off';
+var diagNonMatch = 'off';
 
 function playerNumSwap(){
     if(numberOfPlayers == 2){
@@ -34,6 +37,17 @@ function playerNumSwap(){
         resetGame();
         numberOfPlayers = 2;
         $('.playersButton').text('# of Players: 2');
+        horNonMatch = 'on';
+        vertNonMatch = 'on';
+        diagNonMatch = 'on';
+        $('.playersButton').text('Number of Players: 3');
+    } else if (numberOfPlayers == 3){
+        resetGame();
+        numberOfPlayers = 2;
+        horNonMatch = 'off';
+        vertNonMatch = 'off';
+        diagNonMatch = 'off';
+        $('.playersButton').text('Number of Players: 2');
     }
 }
 
@@ -69,7 +83,7 @@ function playerTurn() {
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player1_turn');
-        playerColor = 'url(http://unrealitymag.com/wp-content/uploads/2011/09/thrones1.jpg)';
+        playerColor = 'url(images/houseofstark.jpg)';
         playerNumber++;
     } else if(playerNumber % numberOfPlayers === 1){
         playerChar = 'o';
@@ -77,7 +91,7 @@ function playerTurn() {
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player2_turn');
-        playerColor = 'url(https://s-media-cache-ak0.pinimg.com/originals/52/80/65/528065918c3a6c9c9c1ae72e13e1ae77.jpg)';
+        playerColor = 'url(images/houseofarryn.jpg)';
         playerNumber++;
     } else {
         playerChar = 'y';
@@ -85,130 +99,185 @@ function playerTurn() {
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').addClass('player3_turn');
-        playerColor = 'url(https://s-media-cache-ak0.pinimg.com/originals/d0/b2/c1/d0b2c1070a34ff44acf356b86bb6be64.jpg)';
+        playerColor = 'url(images/houseoflannister.jpg)';
         playerNumber++;
     }
 }
 
 //extra req
+
 function threeDifferent(){
     threeHorizontal();
+    threeVert();
 
     var nonMatch = 0;
     var currentPlayer;
     var secondPlayer;
+    var thirdPlayer;
     function threeHorizontal() {
-        for (var e = 0; e < masterArrayTwo[tokenRow].length; e) {
-            if (masterArrayTwo[tokenRow][e] !== undefined) {
-                currentPlayer = masterArrayTwo[tokenRow][e];
-                if(masterArrayTwo[tokenRow][e+1] !== currentPlayer && masterArrayTwo[tokenRow][e+1] !== undefined){
-                    secondPlayer = masterArrayTwo[tokenRow][e+1];
-                    if(masterArrayTwo[tokenRow][e+2] !== currentPlayer && masterArrayTwo[tokenRow][e+2] !== secondPlayer){
-                        if(masterArrayTwo[tokenRow][e+2] !== undefined){
-                            console.log('SPECIAL TRI-NONMATCH');
+        if(horNonMatch == 'on') {
+            for (var e = 0; e < masterArrayTwo[tokenRow].length; e) {
+                if (masterArrayTwo[tokenRow][e] !== undefined) {
+                    currentPlayer = masterArrayTwo[tokenRow][e];
+                    if (masterArrayTwo[tokenRow][e + 1] !== currentPlayer && masterArrayTwo[tokenRow][e + 1] !== undefined) {
+                        secondPlayer = masterArrayTwo[tokenRow][e + 1];
+                        if (masterArrayTwo[tokenRow][e + 2] !== currentPlayer && masterArrayTwo[tokenRow][e + 2] !== secondPlayer) {
+                            if (masterArrayTwo[tokenRow][e + 2] !== undefined) {
+                                thirdPlayer = masterArrayTwo[tokenRow][e + 2];
+                                console.log('HORIZONTAL TRI-NON-MATCH');
+                                horNonMatch = 'off';
+                            }
                         }
                     }
+                    e++
+                } else {
+                    e++;
                 }
-                e++
-            } else {
-                e++;
             }
         }
     }
     function threeVert(){
-        for(var e =0; e < masterArrayTwo.length; e) {
-            if (masterArrayTwo[e][tokenColumn] !== undefined) {
-                currentPlayer = masterArrayTwo[e][tokenColumn];
-                if (masterArrayTwo[e + 1][tokenColumn] !== currentPlayer && masterArrayTwo[e + 1][tokenColumn] !== undefined) {
-                    secondPlayer = masterArrayTwo[e + 1][tokenColumn];
-                    if (masterArrayTwo[e + 2][tokenColumn] !== currentPlayer && masterArrayTwo[e+2][tokenColumn] !== secondPlayer) {
-                        if (masterArrayTwo[e+2][tokenColumn] !== undefined) {
-                            console.log('SPECIAL TRI-NONMATCH');
-
+        if(vertNonMatch == 'on') {
+            for (var e = masterArrayTwo.length - 1; e >= 0; e) {
+                if (masterArrayTwo[e][tokenColumn] !== undefined) {
+                    currentPlayer = masterArrayTwo[e][tokenColumn];
+                    if (masterArrayTwo[e - 1][tokenColumn] !== currentPlayer && masterArrayTwo[e - 1][tokenColumn] !== undefined) {
+                        secondPlayer = masterArrayTwo[e - 1][tokenColumn];
+                        if (masterArrayTwo[e - 2][tokenColumn] !== currentPlayer && masterArrayTwo[e - 2][tokenColumn] !== secondPlayer) {
+                            if (masterArrayTwo[e - 2][tokenColumn] !== undefined) {
+                                thirdPlayer = masterArrayTwo[e - 2][tokenColumn];
+                                console.log('VERTICAL TRI-NON-MATCH');
+                                vertNonMatch = 'off';
+                            }
                         }
                     }
+                    e--;
+                } else {
+                    e--;
                 }
-                e++;
-            } else {
-                e++;
             }
         }
     }
     function threeDiag() {
-        if (masterArrayTwo[masterArrayTwo.length - 5].length !== 0) {
-            for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
-                for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 5; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
-                    if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
-                        nonMatch++;
+        if (masterArrayTwo[masterArrayTwo.length - 1].length !== 0) {
+            for (var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++) {
+                for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 1; rowIndex < masterArrayTwo[tokenRow].length, colIndex >= 0; rowIndex, colIndex) {
+                    if (masterArrayTwo[colIndex][rowIndex] !== undefined) {
+                        currentPlayer = masterArrayTwo[colIndex][rowIndex];
+                        if (masterArrayTwo[colIndex - 1][rowIndex + 1] !== currentPlayer && masterArrayTwo[colIndex - 1][rowIndex + 1] !== undefined) {
+                            secondPlayer = masterArrayTwo[colIndex - 1][rowIndex + 1];
+                            if (masterArrayTwo[colIndex - 2][rowIndex + 2] !== currentPlayer && masterArrayTwo[colIndex - 2][rowIndex + 2] !== secondPlayer) {
+                                if (masterArrayTwo[colIndex - 2][rowIndex - 2] !== undefined) {
+                                    thirdPlayer = masterArrayTwo[colIndex - 2][rowIndex - 2];
+                                    console.log('DIAGONAL TRI-NON-MATCH');
+                                    diagNonMatch = 'off';
+                                }
+                            }
+                        }
                         rowIndex++;
-                        colIndex++;
+                        colIndex--;
                     } else {
                         rowIndex++;
-                        colIndex++;
-                        nonMatch = 0;
-                    }
-                    if (nonMatch === 4) {
-                        console.log('SPECIAL');
-                        nonMatch = 0;
+                        colIndex--;
                     }
                 }
-                match = 0;
-                for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 5; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
-                    if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
-                        nonMatch++;
+                for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 1; rowIndex >= 0, colIndex >= 0; rowIndex, colIndex) {
+                    if (masterArrayTwo[colIndex][rowIndex] !== undefined) {
+                        currentPlayer = masterArrayTwo[colIndex][rowIndex];
+                        if (masterArrayTwo[colIndex - 1][rowIndex - 1] !== currentPlayer && masterArrayTwo[colIndex - 1][rowIndex - 1] !== undefined) {
+                            secondPlayer = masterArrayTwo[colIndex - 1][rowIndex - 1];
+                            if (masterArrayTwo[colIndex - 2][rowIndex - 2] !== currentPlayer && masterArrayTwo[colIndex - 2][rowIndex - 2] !== secondPlayer) {
+                                if (masterArrayTwo[colIndex - 2][rowIndex - 2] !== undefined) {
+                                    thirdPlayer = masterArrayTwo[colIndex - 2][rowIndex - 2];
+                                    console.log('DIAGONAL TRI-NON-MATCH');
+                                    diagNonMatch = 'off';
+                                }
+                            }
+                        }
                         rowIndex--;
-                        colIndex++;
+                        colIndex--;
                     } else {
                         rowIndex--;
-                        colIndex++;
-                        nonMatch = 0;
-                    }
-                    if (nonMatch === 4) {
-                        console.log('SPECIAL');
-                        nonMatch = 0;
+                        colIndex--;
                     }
                 }
-                nonMatch = 0;
             }
-        }
-        if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {
-            for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
-                for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
-                    if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
-                        nonMatch++;
-                        rowIndex++;
-                        colIndex++;
-                    } else {
-                        rowIndex++;
-                        colIndex++;
-                        nonMatch = 0;
-                    }
-                    if (nonMatch === 4) {
-                        console.log('SPECIAL');
-                        nonMatch = 0;
-                    }
-                }
-                nonMatch = 0;
-                for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
-                    if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
-                        nonMatch++;
-                        rowIndex--;
-                        colIndex++;
-                    } else {
-                        rowIndex--;
-                        colIndex++;
-                        nonMatch = 0;
-                    }
-                    if (nonMatch === 4) {
-                        console.log('SPECIAL');
-                        nonMatch = 0;
-                    }
-                }
-                nonMatch = 0;
-            }
+            // }
+            // if (masterArrayTwo[masterArrayTwo.length - 2].length !== 0) {
+            //     for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            //         for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex++;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex++;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 4) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //         for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 4; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex--;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex--;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 4) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //     }
+            // }
+            // if (masterArrayTwo[masterArrayTwo.length - 3].length !== 0) {
+            //     for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+            //         for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 3; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex++;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex++;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 3) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //         for (var rowIndex = masterArrayTwo[tokenRow].length - (1 + masterRow), colIndex = masterArrayTwo.length - 3; rowIndex >= 0, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
+            //             if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
+            //                 nonMatch++;
+            //                 rowIndex--;
+            //                 colIndex++;
+            //             } else {
+            //                 rowIndex--;
+            //                 colIndex++;
+            //                 nonMatch = 0;
+            //             }
+            //             if (nonMatch === 3) {
+            //                 console.log('SPECIAL');
+            //                 nonMatch = 0;
+            //             }
+            //         }
+            //         nonMatch = 0;
+            //     }
         }
     }
 }
+
 
 
 function dropPieceZero(){
@@ -229,6 +298,7 @@ function dropPieceZero(){
         checkHorizontal();
         checkVert();
         checkDiag();
+        threeDifferent();
         playerTurn();
         if(masterArrayTwo[0][0] && masterArrayTwo[1][0] && masterArrayTwo[2][0] && masterArrayTwo[3][0] && masterArrayTwo[4][0]){
             colZeroAllowed = false;
@@ -254,6 +324,7 @@ function dropPieceOne(){
         checkHorizontal();
         checkVert();
         checkDiag();
+        threeDifferent();
         playerTurn();
         if(masterArrayTwo[0][1] && masterArrayTwo[1][1] && masterArrayTwo[2][1] && masterArrayTwo[3][1] && masterArrayTwo[4][1]){
             colOneAllowed = false;
@@ -279,6 +350,7 @@ function dropPieceTwo(){
         checkHorizontal();
         checkVert();
         checkDiag();
+        threeDifferent();
         playerTurn();
         if(masterArrayTwo[0][2] && masterArrayTwo[1][2] && masterArrayTwo[2][2] && masterArrayTwo[3][2] && masterArrayTwo[4][2]){
             colTwoAllowed = false;
@@ -304,6 +376,7 @@ function dropPieceThree(){
         checkHorizontal();
         checkVert();
         checkDiag();
+        threeDifferent();
         playerTurn();
         if(masterArrayTwo[0][3] && masterArrayTwo[1][3] && masterArrayTwo[2][3] && masterArrayTwo[3][3] && masterArrayTwo[4][3]){
             colThreeAllowed = false;
@@ -329,6 +402,7 @@ function dropPieceFour(){
         checkHorizontal();
         checkVert();
         checkDiag();
+        threeDifferent();
         playerTurn();
         if(masterArrayTwo[0][4] && masterArrayTwo[1][4] && masterArrayTwo[2][4] && masterArrayTwo[3][4] && masterArrayTwo[4][4]){
             colFourAllowed = false;
@@ -354,6 +428,7 @@ function dropPieceFive(){
         checkHorizontal();
         checkVert();
         checkDiag();
+        threeDifferent();
         playerTurn();
         if(masterArrayTwo[0][5] && masterArrayTwo[1][5] && masterArrayTwo[2][5] && masterArrayTwo[3][5] && masterArrayTwo[4][5]){
             colFiveAllowed = false;
@@ -401,8 +476,8 @@ function checkVert(){
 
 
 function checkDiag() {
-    if (masterArrayTwo[masterArrayTwo.length - 5].length !== 0) {
-        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+    if (masterArrayTwo[masterArrayTwo.length - 5].length !== 0) {                       //if the length of the top array is not zero
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){               // do a full check of all possible diagonals starting from the top array
             for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 5; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
                 if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
                     match++;
@@ -439,8 +514,8 @@ function checkDiag() {
             match = 0;
         }
     }
-    if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {
-        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){
+    if (masterArrayTwo[masterArrayTwo.length - 4].length !== 0) {           //if the fourth array from the bottom does not have a length of 0
+        for(var masterRow = 0; masterRow < masterArrayTwo[tokenRow].length; masterRow++){           //do a full check of all diagonals starting from the second array
             for (var rowIndex = masterRow, colIndex = masterArrayTwo.length - 4; rowIndex < masterArrayTwo[tokenRow].length, colIndex < masterArrayTwo.length; rowIndex, colIndex) {
                 if (masterArrayTwo[colIndex][rowIndex] == playerChar) {
                     match++;
@@ -500,6 +575,11 @@ function resetGame() {
     colThreeAllowed = true;
     colFourAllowed = true;
     colFiveAllowed = true;
+    if(numberOfPlayers = 3) {
+        horNonMatch = 'on';
+        vertNonMatch = 'on';
+        diagNonMatch = 'on';
+    }
     $('#mainBody div').css('background-image', "");
     $('.header-column0').on('click', dropPieceZero);
     $('.header-column1').on('click', dropPieceOne);
