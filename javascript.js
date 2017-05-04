@@ -78,7 +78,7 @@ function playerTurn() {
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player1_turn');
-        playerColor = 'url(http://unrealitymag.com/wp-content/uploads/2011/09/thrones1.jpg)';
+        playerColor = 'url(images/houseofstark.jpg)';
         playerNumber++;
     } else if(playerNumber % numberOfPlayers === 1){
         playerChar = 'o';
@@ -86,7 +86,7 @@ function playerTurn() {
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').removeClass('player3_turn');
         $('.whos_turn').addClass('player2_turn');
-        playerColor = 'url(https://s-media-cache-ak0.pinimg.com/originals/52/80/65/528065918c3a6c9c9c1ae72e13e1ae77.jpg)';
+        playerColor = 'url(images/houseofarryn.jpg)';
         playerNumber++;
     } else {
         playerChar = 'y';
@@ -94,12 +94,13 @@ function playerTurn() {
         $('.whos_turn').removeClass('player1_turn');
         $('.whos_turn').removeClass('player2_turn');
         $('.whos_turn').addClass('player3_turn');
-        playerColor = 'url(https://s-media-cache-ak0.pinimg.com/originals/d0/b2/c1/d0b2c1070a34ff44acf356b86bb6be64.jpg)';
+        playerColor = 'url(images/houseoflannister.jpg)';
         playerNumber++;
     }
 }
 
 //extra req
+
 function threeDifferent(){
     threeHorizontal();
     threeVert();
@@ -271,6 +272,7 @@ function threeDifferent(){
         }
     }
 }
+
 
 
 function dropPieceZero(){
